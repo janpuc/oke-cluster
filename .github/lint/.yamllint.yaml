@@ -1,0 +1,10 @@
+---
+extends: default
+rules:
+  braces:
+    forbid: non-empty
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true
+  indentation:
+    spaces: 2
