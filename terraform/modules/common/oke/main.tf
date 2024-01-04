@@ -1,19 +1,17 @@
 locals {
-  kubernetes_version = "v1.28.2"
-  linux_version      = "8"
   prebaked_img_id = element([for source in data.oci_containerengine_node_pool_option.node_pool_options.sources :
-    source.image_id if length(regexall("(${local.linux_version}\\.\\d*)-aarch64-([\\.0-9]+)-\\d-", source.source_name)) > 0 &&
-  length(regexall(trim(local.kubernetes_version, "v"), source.source_name)) > 0], 0)
+    source.image_id if length(regexall("(${var.oke_node_linux_version}\\.\\d*)-aarch64-([\\.0-9]+)-\\d-", source.source_name)) > 0 &&
+  length(regexall(trim(var.oke_cluster_version, "v"), source.source_name)) > 0], 0)
 }
 
 resource "oci_containerengine_cluster" "k8s_cluster" {
   compartment_id     = var.compartment_id
-  kubernetes_version = local.kubernetes_version
-  name               = "k8s-cluster"
-  vcn_id             = module.vcn.vcn_id
+  kubernetes_version = var.oke_cluster_version
+  name               = var.oke_cluster_name
+  vcn_id             = var.vcn_id
   endpoint_config {
     is_public_ip_enabled = true
-    subnet_id            = module.vcn.public_subnet_id
+    subnet_id            = var.vcn_public_subnet_id
   }
   options {
     add_ons {
@@ -21,10 +19,10 @@ resource "oci_containerengine_cluster" "k8s_cluster" {
       is_tiller_enabled               = false
     }
     kubernetes_network_config {
-      pods_cidr     = "10.244.0.0/16"
-      services_cidr = "10.96.0.0/16"
+      pods_cidr     = var.oke_pods_cidr
+      services_cidr = var.oke_services_cidr
     }
-    service_lb_subnet_ids = [module.vcn.public_subnet_id]
+    service_lb_subnet_ids = [var.vcn_public_subnet_id]
   }
 }
 
@@ -40,26 +38,26 @@ data "oci_containerengine_node_pool_option" "node_pool_options" {
 resource "oci_containerengine_node_pool" "k8s_node_pool" {
   cluster_id         = oci_containerengine_cluster.k8s_cluster.id
   compartment_id     = var.compartment_id
-  kubernetes_version = local.kubernetes_version
-  name               = "k8s-node-pool"
+  kubernetes_version = var.oke_cluster_version
+  name               = var.oke_node_pool_name
 
   node_config_details {
     placement_configs {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-      subnet_id           = module.vcn.private_subnet_id
+      subnet_id           = var.vcn_private_subnet_id
     }
 
     placement_configs {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
-      subnet_id           = module.vcn.private_subnet_id
+      subnet_id           = var.vcn_private_subnet_id
     }
 
     placement_configs {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[2].name
-      subnet_id           = module.vcn.private_subnet_id
+      subnet_id           = var.vcn_private_subnet_id
     }
 
-    size = 2
+    size = var.oke_node_pool_size
   }
 
   node_shape = "VM.Standard.A1.Flex"
@@ -76,14 +74,10 @@ resource "oci_containerengine_node_pool" "k8s_node_pool" {
   }
   initial_node_labels {
     key   = "name"
-    value = "k8s-cluster"
+    value = var.oke_cluster_name
   }
 }
 
 data "oci_containerengine_cluster_kube_config" "cluster_kube_config" {
   cluster_id = oci_containerengine_cluster.k8s_cluster.id
-}
-
-output "kubeconfig" {
-  value = data.oci_containerengine_cluster_kube_config.cluster_kube_config.content
 }
