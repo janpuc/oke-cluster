@@ -10,5 +10,6 @@ terraform {
     skip_metadata_api_check     = true
     endpoints                   = { s3 = "https://fr2kdr2nkebq.compat.objectstorage.eu-frankfurt-1.oraclecloud.com" }
     shared_credentials_files    = ["~/.oci/config"]
+    profile                     = "DEFAULT"
   }
 }
