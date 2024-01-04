@@ -6,7 +6,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.6.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | ~>5.23.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | ~> 5.23.0 |
 
 ## Providers
 
@@ -48,5 +48,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_certificate_authority_data"></a> [certificate\_authority\_data](#output\_certificate\_authority\_data) | OKE Cluster CA |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | OKE Cluster Endpoint |
+| <a name="output_id"></a> [id](#output\_id) | OKE Cluster ID |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | Kubeconfig |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

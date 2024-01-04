@@ -35,3 +35,9 @@ module "oke" {
   vcn_public_subnet_id  = module.vcn.public_subnet_id
   vcn_private_subnet_id = module.vcn.private_subnet_id
 }
+
+resource "local_file" "oke_kubeconfig" {
+  content         = yamlencode(module.oke.kubeconfig)
+  filename        = "${path.root}/generated/kubeconfig"
+  file_permission = "0644"
+}

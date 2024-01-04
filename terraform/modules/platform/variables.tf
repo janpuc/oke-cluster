@@ -2,3 +2,9 @@ variable "compartment_id" {
   description = "Compartment ID (OCID) of the Tenancy"
   type        = string
 }
+
+variable "region" {
+  description = "Region"
+  type        = string
+  default     = "eu-frakfurt-1"
+}

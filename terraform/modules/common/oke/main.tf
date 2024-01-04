@@ -2,6 +2,8 @@ locals {
   prebaked_img_id = element([for source in data.oci_containerengine_node_pool_option.node_pool_options.sources :
     source.image_id if length(regexall("(${var.oke_node_linux_version}\\.\\d*)-aarch64-([\\.0-9]+)-\\d-", source.source_name)) > 0 &&
   length(regexall(trim(var.oke_cluster_version, "v"), source.source_name)) > 0], 0)
+
+  kubeconfig = yamldecode(data.oci_containerengine_cluster_kube_config.cluster_kube_config.content)
 }
 
 resource "oci_containerengine_cluster" "k8s_cluster" {
