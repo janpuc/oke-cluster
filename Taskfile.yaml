@@ -5,6 +5,10 @@ version: "3"
 vars:
   TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
+env:
+  KUBECONFIG: "{{.TERRAFORM_DIR}}/target/generated/kubeconfig"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
+
 includes:
   terraform: .taskfiles/Terraform/Taskfile.yaml
 

@@ -1,0 +1,59 @@
+# This file is maintained automatically by "tofu init".
+# Manual edits may be lost in future updates.
+
+provider "registry.opentofu.org/hashicorp/kubernetes" {
+  version     = "2.24.0"
+  constraints = "~> 2.24.0"
+  hashes = [
+    "h1:Y/Qh3wP6F6e+2jmg1mkfE5gMmr/z2CMSFTnZUon0TtA=",
+    "zh:1c4745c8944d2cc736345c061762d36e8272d2f437d6f28def8c6b3852817013",
+    "zh:389b2677c054361af7d14ecec89fea62eedaac55f657ebe357ea532832ff5c03",
+    "zh:38abe75a855f8e5a62fbf680da649b95b85fa28711482ad86daeba4e57420ac0",
+    "zh:40e2322bfee72c71c684838299c9c14d50e9b8674d076c0b860360a1527059ff",
+    "zh:5ff1a85afbb2870e87a89f88275860385d1b8f65e66cfee77a31ffbe2f1e3fda",
+    "zh:9030fd231ec608cdef41eccd706fd0041837688cbb0da27c049b35100fd01e31",
+    "zh:9108d1959b468af928293a471cd191683a5893027ac5768ea2ee4cc33aabeff8",
+    "zh:ad7761b10c268ed41e651a122d0ee12f945126d5af163ffebc1c15852677e545",
+    "zh:c2711acd6498f88456ac6cf88ec49c937344861725a5756b6858688ae3bb460e",
+    "zh:d28ddf12ea5057f7afa2140839e38a7fa8545f456ed25eb7ab3a436093ab919a",
+  ]
+}
+
+provider "registry.opentofu.org/hashicorp/local" {
+  version = "2.4.1"
+  hashes = [
+    "h1:30pfYs8ZNYHhGl54itTPGmYiCrY5UsKg31KB1mnr7Eo=",
+    "zh:0d4d7a980ba3479459ab8a231019588d38615b22b97600419c3c7482ee82bc8b",
+    "zh:16cf003a5bff1c5cae32e29af30f54376aec29b21ce26768d5fa59cc8b3bac3e",
+    "zh:469539918519547b2b87a9301ad811e59e50d4f217c36da01e0d981b45a393e9",
+    "zh:620234f4c7dcfd00fa4b7d15e71fa055ada4a8afe084f84a40d06d02fc7e7c08",
+    "zh:68fd2f982c5fecff972e03eced690077911083f782a237d5a026597ab387f737",
+    "zh:7bc30de9089a3d060f9866e08f6bd766351880026a458a4b7443cb110d47dc16",
+    "zh:ad772631dfa005fdd6f7cc2ce33d1771218574b5153c5d601d7584fe9e8a0da2",
+    "zh:cb6f16481607a3899e1d0a8f9fcacf246fb4927ee274da69c7d1e75fc4960713",
+    "zh:dcac954e9e401c53db3750ab3df22173f7ba288e978da348f97ddbbc4a33abb1",
+    "zh:eeeb0583e152403bdb473de5f133b48cef04af8f7c3f38ee7dc6d034df91534d",
+  ]
+}
+
+provider "registry.opentofu.org/oracle/oci" {
+  version = "5.23.0"
+  hashes = [
+    "h1:kpovt4Uu+rGUeUn2m+cQTQil+sPPdvftigIu5XDviN4=",
+    "zh:0279b2be39b1eb0b43c232076f6a94a7b908c75825b5d7d88d1ddf29b01cd0d8",
+    "zh:0f4d61b08e8aab8500094dcae2b2ca937dde0d76e08d6a1ac039767d5bcf0fae",
+    "zh:1ffcd3ddbd70f3ef67194f2616c7ddb08000339ed6ed6551fe753730decda46d",
+    "zh:3e6308182e67ea4f8c8165fb39b64b8955f622049bc68ad02e5fdde31caac406",
+    "zh:7122951bac53f2237d4e71f786206e66754ed752c2b8d38d4a23d0559acb44ce",
+    "zh:804a88f7dd77ea904ef77a187cb6c06642783cba9cde9d9adaf726949b4b678c",
+    "zh:845f962e233b93ef1ee33621fca35c6e225eaef34a4041566360470312a82fd4",
+    "zh:85e02fdddc9404c0b1501f250b893e604c05cf2ec8bd351accf5d540404aa7d5",
+    "zh:921c74161932ea1b00a7af3683a1ef54d918d8ed950b763aa434b4db56cadca6",
+    "zh:9b12af85486a96aedd8d7984b0ff811a4b42e3d88dad1a3fb4c0b580d04fa425",
+    "zh:a410971dc6cce0219189cd55a034b05c7d0f494021162494c0a461926d60015b",
+    "zh:ab2dcfba27b8d1a5676f5807f525ed2276c968cf45c0006a97aae2a3f929ad55",
+    "zh:c2dbe54650c3e46aff3be481ecb7ba4062394d227da40d1de0ff26c91f4f2a94",
+    "zh:e0f53c725ecc96525945905fa5a0b5f422e81a81b9225529c980b14450bd6029",
+    "zh:ec564618b1e156a752265283b8bb6f1a141d12e446f137790a0aaf857a835b9f",
+  ]
+}
