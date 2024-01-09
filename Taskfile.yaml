@@ -3,6 +3,7 @@
 version: "3"
 
 vars:
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
 env:
@@ -10,6 +11,7 @@ env:
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
+  flux: .taskfiles/Flux/Taskfile.yaml
   terraform: .taskfiles/Terraform/Taskfile.yaml
 
 tasks:
