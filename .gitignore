@@ -59,4 +59,4 @@ generated/*
 kubeconfig
 
 # Taskfile
-./task
+.task
