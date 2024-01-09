@@ -8,8 +8,8 @@ tasks:
     desc: Initialize Terraform
     cmd: tofu -chdir={{.TERRAFORM_DIR}}/target init
     sources:
-      - "{{.TERRAFORM_DIR}}/**/*.tf"
-      - "{{.TERRAFORM_DIR}}/**/*.tfvars"
+      - "{{.TERRAFORM_DIR}}/**/versions.tf"
+      - "{{.TERRAFORM_DIR}}/**/providers.tf"
     generates:
       - "{{.TERRAFORM_DIR}}/**/.terraform.lock.hcl"
 
