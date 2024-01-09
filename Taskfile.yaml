@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
+
+includes:
+  terraform: .taskfiles/Terraform/Taskfile.yaml
+
+tasks:
+  default:
+    silent: true
+    cmd: task -l

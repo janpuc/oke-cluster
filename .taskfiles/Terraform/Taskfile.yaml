@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+
+  init:
+    desc: Initialize Terraform
+    cmd: tofu -chdir={{.TERRAFORM_DIR}}/target init
+
+  plan:
+    desc: Run Terraform plan for provisioning the OKE cluster
+    deps: ["init"]
+    cmd: tofu -chdir={{.TERRAFORM_DIR}}/target plan
+
+  apply:
+    desc: Run Terraform apply for provisioning the OKE cluster
+    deps: ["init"]
+    cmd: tofu -chdir={{.TERRAFORM_DIR}}/target apply --auto-approve
+
+  destroy:
+    desc: Run Terraform destroy to destroy the OKE cluster
+    deps: ["init"]
+    cmd: tofu -chdir={{.TERRAFORM_DIR}}/target destroy --auto-approve
