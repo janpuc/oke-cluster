@@ -7,6 +7,11 @@ tasks:
   init:
     desc: Initialize Terraform
     cmd: tofu -chdir={{.TERRAFORM_DIR}}/target init
+    sources:
+      - "{{.TERRAFORM_DIR}}/**/*.tf"
+      - "{{.TERRAFORM_DIR}}/**/*.tfvars"
+    generates:
+      - "{{.TERRAFORM_DIR}}/**/.terraform.lock.hcl"
 
   plan:
     desc: Run Terraform plan for provisioning the OKE cluster
