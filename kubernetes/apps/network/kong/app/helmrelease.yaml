@@ -26,12 +26,9 @@ spec:
   values:
     controller:
       proxy:
-        enabled: true
         annotations:
           oci.oraclecloud.com/load-balancer-type: "nlb"
-
     gateway:
       proxy:
-        enabled: false
-      admin:
-        enabled: false
+        annotations:
+          oci.oraclecloud.com/load-balancer-type: "nlb"
