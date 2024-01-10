@@ -24,7 +24,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    gateway:
+    controller:
       proxy:
         annotations:
           oci.oraclecloud.com/load-balancer-type: "nlb"
