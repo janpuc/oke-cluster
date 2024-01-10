@@ -25,6 +25,8 @@ spec:
     keepHistory: false
   values:
     controller:
-      proxy:
+      proxy: &proxy
         annotations:
           oci.oraclecloud.com/load-balancer-type: "nlb"
+    gateway:
+      proxy: *proxy
