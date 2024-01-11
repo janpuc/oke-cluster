@@ -28,7 +28,9 @@ spec:
       proxy:
         annotations:
           oci.oraclecloud.com/load-balancer-type: "nlb"
+          external-dns.alpha.kubernetes.io/hostname: oke.janpuc.com
     gateway:
       proxy:
         annotations:
           oci.oraclecloud.com/load-balancer-type: "nlb"
+          external-dns.alpha.kubernetes.io/hostname: oke.janpuc.com
