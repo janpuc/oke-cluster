@@ -24,6 +24,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    logLevel: debug
     provider: cloudflare
     env:
       - name: CF_API_TOKEN
@@ -33,7 +34,6 @@ spec:
             key: CF_API_TOKEN
     extraArgs:
       - --cloudflare-proxied
-      - --log-level=debug
     policy: sync
     txtOwnerId: default
     txtPrefix: oke.
