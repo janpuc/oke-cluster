@@ -33,6 +33,7 @@ spec:
             key: CF_API_TOKEN
     extraArgs:
       - --cloudflare-proxied
+      - --log-level=debug
     policy: sync
     txtOwnerId: default
     txtPrefix: oke.
