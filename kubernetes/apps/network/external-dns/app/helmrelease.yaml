@@ -29,9 +29,9 @@ spec:
     sources:
       - service
       - gateway-httproute
-      - gateway-tcproute
-      - gateway-tlsroute
-      - gateway-udproute
+      # - gateway-tcproute
+      # - gateway-tlsroute
+      # - gateway-udproute
     env:
       - name: CF_API_TOKEN
         valueFrom:
