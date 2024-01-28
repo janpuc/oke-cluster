@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: csi-s3
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: csi-s3
+      version: 0.40.0
+      sourceRef:
+        kind: HelmRepository
+        name: csi-s3
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    images:
+      # https://github.com/yandex-cloud/k8s-csi-s3/pull/51
+      registrar: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0
+      provisioner: registry.k8s.io/sig-storage/csi-provisioner:v3.3.0
+      csi: ghcr.io/motoki317/k8s-csi-s3:0.38.3-p1
+    secret:
+      create: false
+      name: csi-s3-secret
+    # kubeletPath: /var/lib/k0s/kubelet
+  # # https://github.com/yandex-cloud/k8s-csi-s3/issues/71
+  # postRenderers:
+  #   - kustomize:
+  #       patches:
+  #         - target:
+  #             group: apps
+  #             version: v1
+  #             kind: DaemonSet
+  #             name: csi-s3
+  #           patch: |-
+  #             - op: add
+  #               path: "/spec/template/spec/containers/1/env/-"
+  #               value:
+  #                 name: PLUGIN_DIR
+  #                 value: "/var/lib/k0s/kubelet/plugins/ru.yandex.s3.csi"
