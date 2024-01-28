@@ -33,7 +33,7 @@ spec:
     secret:
       create: false
       name: csi-s3-secret
-    kubeletPath: /var/lib/k0s/kubelet
+    # kubeletPath: /var/lib/k0s/kubelet
   # # https://github.com/yandex-cloud/k8s-csi-s3/issues/71
   # postRenderers:
   #   - kustomize:
