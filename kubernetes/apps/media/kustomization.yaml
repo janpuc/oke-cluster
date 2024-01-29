@@ -6,5 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./pvc.yaml
+  - ./referencegrant.yaml
   # Flux-Kustomizations
   - ./media-browser/ks.yaml

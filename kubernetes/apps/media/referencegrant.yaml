@@ -1,0 +1,13 @@
+---
+kind: ReferenceGrant
+metadata:
+  name: media
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: media
+  to:
+    - group: ""
+      kind: Service
+      namespace: media
