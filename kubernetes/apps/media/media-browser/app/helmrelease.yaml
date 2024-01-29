@@ -39,7 +39,7 @@ spec:
               FB_ROOT: /media
               FB_LOG: stdout
               FB_NOAUTH: true
-              FB_PORT: &port 8000
+              FB_PORT: &port 8080
             probes:
               liveness: &probes
                 enabled: true
