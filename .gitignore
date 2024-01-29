@@ -13,3 +13,4 @@ Thumbs.db
 *.key
 *.pem
 kubeconfig
+*.tmp/
