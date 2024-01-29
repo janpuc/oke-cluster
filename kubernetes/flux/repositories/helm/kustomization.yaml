@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./bjw-s.yaml
   - ./bitnami.yaml
+  - ./cloudnative-pg.yaml
   - ./csi-s3.yaml
   - ./democratic-csi.yaml
   - ./external-dns.yaml
