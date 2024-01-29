@@ -1,0 +1,105 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app lldap
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: lldap-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/lldap/lldap
+              tag: v0.5.0@sha256:13c5d7f2951cace762d143d6864f5f7b1b8c53d66ea430e5d79779d007d53bb4
+            env:
+              LLDAP_HTTP_PORT: &port 8080
+              LLDAP_HTTP_URL: https://lldap.janpuc.com
+              LLDAP_LDAP_PORT: &ldapPort 8389
+              LLDAP_LDAP_BASE_DN: dc=janpuc,dc=com
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+          ldap:
+            port: *ldapPort
+    route:
+      main:
+        enabled: true
+        parentRefs:
+          - name: kong
+            namespace: network
+        hostnames:
+          - "{{ .Release.Name }}.janpuc.com"
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - port: http
+                name: main
+    persistence:
+      data:
+        type: emptyDir
