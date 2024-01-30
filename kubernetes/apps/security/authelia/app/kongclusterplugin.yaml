@@ -29,8 +29,9 @@ config:
           end
 
           if res.status == 401 then
-              -- Redirect to Authelia login page
-              local redirect_url = "https://auth.janpuc.com?rm=" .. ngx.var.request_method
+              -- Preserve the original requested URL and redirect to Authelia login page
+              local original_url = ngx.var.scheme .. "://" .. ngx.var.host .. ngx.var.request_uri
+              local redirect_url = "https://auth.janpuc.com?rd=" .. ngx.escape_uri(original_url)
               ngx.redirect(redirect_url, ngx.HTTP_MOVED_TEMPORARILY)
           elseif res.status ~= 200 then
               ngx.log(ngx.ERR, "Authelia authentication failed with status: ", res.status)
