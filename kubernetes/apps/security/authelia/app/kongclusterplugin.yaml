@@ -44,6 +44,11 @@ config:
           ngx.req.set_header("Remote-Name", res.headers["Remote-Name"])
           ngx.req.set_header("Remote-Email", res.headers["Remote-Email"])
           ngx.req.set_header("Remote-Groups", res.headers["Remote-Groups"])
+
+          -- Set cookies in the response
+          if res.headers["Set-Cookie"] then
+              ngx.header["Set-Cookie"] = res.headers["Set-Cookie"]
+          end
       end
 
       -- Execute the forward_to_authelia function for the access phase
