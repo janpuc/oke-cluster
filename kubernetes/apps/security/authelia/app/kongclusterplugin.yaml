@@ -26,6 +26,7 @@ config:
           if not res then
               ngx.log(ngx.ERR, "Failed to request Authelia: ", err)
               ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)
+              return
           end
 
           if res.status == 401 then
