@@ -78,24 +78,24 @@ spec:
         ports:
           http:
             port: *port
-    route:
-      main:
-        annotations:
-          konghq.com/plugins: authelia-forward
-        enabled: true
-        parentRefs:
-          - name: kong
-            namespace: network
-        hostnames:
-          - "{{ .Release.Name }}.janpuc.com"
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /
-            backendRefs:
-              - port: http
-                name: main
+    # route:
+    #   main:
+    #     annotations:
+    #       konghq.com/plugins: authelia-forward
+    #     enabled: true
+    #     parentRefs:
+    #       - name: kong
+    #         namespace: network
+    #     hostnames:
+    #       - "{{ .Release.Name }}.janpuc.com"
+    #     rules:
+    #       - matches:
+    #           - path:
+    #               type: PathPrefix
+    #               value: /
+    #         backendRefs:
+    #           - port: http
+    #             name: main
     persistence:
       config:
         enabled: true
