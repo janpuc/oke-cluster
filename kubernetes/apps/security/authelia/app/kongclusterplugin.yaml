@@ -6,3 +6,5 @@ metadata:
 plugin: pre-function
 config:
   path: /etc/kong/custom/authelia-forward.lua
+  access:
+    - forward_to_authelia
