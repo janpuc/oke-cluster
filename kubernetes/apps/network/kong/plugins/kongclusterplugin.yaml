@@ -6,7 +6,7 @@ metadata:
 plugin: ldap-auth
 config:
   hide_credentials: true
-  ldap_host: lldap.default.svc.cluster.local
+  ldap_host: lldap.security.svc.cluster.local
   ldap_port: 8389
   base_dn: dc=janpuc,dc=com
   attribute: cn
