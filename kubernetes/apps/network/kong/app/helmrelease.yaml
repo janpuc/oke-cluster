@@ -40,4 +40,4 @@ spec:
         - name: authelia-forward-configmap
           mountPath: /etc/kong/custom
       env:
-        KONG_UNTRUSTED_LUA: "on"
+        UNTRUSTED_LUA: "on"
