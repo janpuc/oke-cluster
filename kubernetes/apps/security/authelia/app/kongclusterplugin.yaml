@@ -9,15 +9,18 @@ plugin: pre-function
 config:
   access:
     - |
+      local http = require "resty.http"
+
       local authelia_url = "http://authelia.security.svc.cluster.local:8080/api/verify"
 
       -- Function to forward the request to Authelia and process the response
       local function forward_to_authelia()
-          local res = ngx.location.capture(authelia_url, {
+          local httpc = http.new()
+
+          local res, err = httpc:request_uri(authelia_url, {
               method = ngx.var.request_method,
               headers = ngx.req.get_headers(),
-              args = ngx.var.args,
-              http_version = 1.1,
+              query = ngx.var.args,
           })
 
           if not res then
@@ -35,10 +38,10 @@ config:
           end
 
           -- Set custom headers based on Authelia response
-          ngx.req.set_header("Remote-User", res.header["Remote-User"])
-          ngx.req.set_header("Remote-Name", res.header["Remote-Name"])
-          ngx.req.set_header("Remote-Email", res.header["Remote-Email"])
-          ngx.req.set_header("Remote-Groups", res.header["Remote-Groups"])
+          ngx.req.set_header("Remote-User", res.headers["Remote-User"])
+          ngx.req.set_header("Remote-Name", res.headers["Remote-Name"])
+          ngx.req.set_header("Remote-Email", res.headers["Remote-Email"])
+          ngx.req.set_header("Remote-Groups", res.headers["Remote-Groups"])
       end
 
       -- Execute the forward_to_authelia function for the access phase
