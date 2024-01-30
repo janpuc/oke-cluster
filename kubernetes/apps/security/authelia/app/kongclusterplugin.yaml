@@ -17,6 +17,8 @@ config:
               method = ngx.var.request_method,
               headers = ngx.req.get_headers(),
               args = ngx.var.args,
+              ssl_verify = false,  -- Disable SSL verification if needed
+              ssl_server_name = "authelia.security.svc.cluster.local",  -- Set server name explicitly
           })
 
           if not res then
