@@ -3,6 +3,8 @@ apiVersion: configuration.konghq.com/v1
 kind: KongClusterPlugin
 metadata:
   name: ldap-auth
+  annotations:
+    kubernetes.io/ingress.class: kong
 plugin: ldap-auth
 config:
   hide_credentials: true
