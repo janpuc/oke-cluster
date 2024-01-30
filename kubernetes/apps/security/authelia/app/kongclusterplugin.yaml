@@ -1,0 +1,8 @@
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: authelia-forward
+plugin: pre-function
+config:
+  path: /etc/kong/custom/authelia-forward.lua

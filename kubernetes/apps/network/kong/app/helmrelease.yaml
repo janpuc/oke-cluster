@@ -36,3 +36,6 @@ spec:
           oci.oraclecloud.com/load-balancer-type: "nlb"
           oci-network-load-balancer.oraclecloud.com/internal: "false"
           external-dns.alpha.kubernetes.io/hostname: oke.janpuc.com
+      extraConfigMaps:
+        - name: authelia-forward-configmap
+          mountPath: /etc/kong/custom

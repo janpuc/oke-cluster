@@ -6,3 +6,9 @@ resources:
   - ./gateway.yaml
   - ./gatewayclass.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: authelia-forward-configmap
+    files:
+      - authelia-forward.lua=./resources/authelia-forward.lua
+generatorOptions:
+  disableNameSuffixHash: true
