@@ -1,0 +1,13 @@
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: lldap-auth
+plugin: lldap-auth
+config:
+  hide_credentials: true
+  ldap_host: lldap.default.svc.cluster.local
+  ldap_port: 8389
+  base_dn: dc=janpuc,dc=com
+  attribute: cn
+  header_type: ldap
