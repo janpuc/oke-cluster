@@ -80,8 +80,8 @@ spec:
             port: *port
     route:
       main:
-        annotations:
-          konghq.com/plugins: authelia-forward
+        # annotations:
+        #   konghq.com/plugins: authelia-forward
         enabled: true
         parentRefs:
           - name: kong
