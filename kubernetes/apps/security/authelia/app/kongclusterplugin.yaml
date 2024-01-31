@@ -17,10 +17,12 @@ config:
       local function forward_to_authelia()
           local httpc = http.new()
 
+          local query = ngx.var.args ~= "" and ngx.var.args or nil
+
           local res, err = httpc:request_uri(authelia_url, {
               method = ngx.var.request_method,
               headers = ngx.req.get_headers(),
-              query = ngx.var.args,
+              query = query,
           })
 
           if not res then
@@ -33,21 +35,31 @@ config:
               -- Preserve the original requested URL and redirect to Authelia login page
               local original_url = ngx.var.scheme .. "://" .. ngx.var.host .. ngx.var.request_uri
               local redirect_url = "https://auth.janpuc.com?rd=" .. ngx.escape_uri(original_url)
-              ngx.redirect(redirect_url, ngx.HTTP_MOVED_TEMPORARILY)
+
+              if not (ngx.headers_sent or ngx.exit_called) then
+                  ngx.redirect(redirect_url, ngx.HTTP_MOVED_TEMPORARILY)
+              end
           elseif res.status ~= 200 then
               ngx.log(ngx.ERR, "Authelia authentication failed with status: ", res.status)
               ngx.exit(ngx.HTTP_UNAUTHORIZED)
           end
 
           -- Set custom headers based on Authelia response
-          ngx.req.set_header("Remote-User", res.headers["Remote-User"])
-          ngx.req.set_header("Remote-Name", res.headers["Remote-Name"])
-          ngx.req.set_header("Remote-Email", res.headers["Remote-Email"])
-          ngx.req.set_header("Remote-Groups", res.headers["Remote-Groups"])
+          set_header_if_exists("Remote-User", res.headers["Remote-User"])
+          set_header_if_exists("Remote-Name", res.headers["Remote-Name"])
+          set_header_if_exists("Remote-Email", res.headers["Remote-Email"])
+          set_header_if_exists("Remote-Groups", res.headers["Remote-Groups"])
 
           -- Set cookies in the response
           if res.headers["Set-Cookie"] then
               ngx.header["Set-Cookie"] = res.headers["Set-Cookie"]
+          end
+      end
+
+      -- Helper function to set headers if they exist in the Authelia response
+      local function set_header_if_exists(header_name, header_value)
+          if header_value then
+              ngx.req.set_header(header_name, header_value)
           end
       end
 
