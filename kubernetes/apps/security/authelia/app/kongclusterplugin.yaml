@@ -13,6 +13,13 @@ config:
 
       local authelia_url = "http://authelia.security.svc.cluster.local:8080/api/verify"
 
+      -- Helper function to set headers if they exist in the Authelia response
+      local function set_header_if_exists(header_name, header_value)
+          if header_value then
+              ngx.req.set_header(header_name, header_value)
+          end
+      end
+
       -- Function to forward the request to Authelia and process the response
       local function forward_to_authelia()
           local httpc = http.new()
@@ -53,13 +60,6 @@ config:
           -- Set cookies in the response
           if res.headers["Set-Cookie"] then
               ngx.header["Set-Cookie"] = res.headers["Set-Cookie"]
-          end
-      end
-
-      -- Helper function to set headers if they exist in the Authelia response
-      local function set_header_if_exists(header_name, header_value)
-          if header_value then
-              ngx.req.set_header(header_name, header_value)
           end
       end
 
