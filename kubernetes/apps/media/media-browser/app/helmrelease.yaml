@@ -81,7 +81,7 @@ spec:
     route:
       main:
         annotations:
-          konghq.com/plugins: authelia-forward
+          konghq.com/plugins: ldap-auth
         enabled: true
         parentRefs:
           - name: kong
