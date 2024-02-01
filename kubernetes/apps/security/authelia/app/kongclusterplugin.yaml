@@ -9,59 +9,63 @@ plugin: pre-function
 config:
   access:
     - |
-      local http = require "resty.http"
+      local httpc = require ("resty.http").new()
 
       local authelia_url = "http://authelia.security.svc.cluster.local:8080/api/verify"
 
-      -- Helper function to set headers if they exist in the Authelia response
-      local function set_header_if_exists(header_name, header_value)
-          if header_value then
-              ngx.req.set_header(header_name, header_value)
-          end
-      end
-
-      -- Function to forward the request to Authelia and process the response
       local function forward_to_authelia()
-          local httpc = http.new()
-
-          local query = ngx.var.args ~= "" and ngx.var.args or nil
 
           local res, err = httpc:request_uri(authelia_url, {
-              method = ngx.var.request_method,
-              headers = ngx.req.get_headers(),
-              query = query,
+              method = "GET",
+              headers = {
+                  ["Accept"]              = kong.request.get_header("Accept"),
+                  ["Cookie"]              = kong.request.get_header("Cookie"),
+                  ["Proxy-Authorization"] = kong.request.get_header("Proxy-Authorization"),
+
+                  ["X-Authelia-URL"]     = "https://auth.janpuc.com/",
+                  ["X-Forwarded-Method"] = kong.request.get_method(),
+                  ["X-Forwarded-Proto"]  = kong.request.get_forwarded_scheme(),
+                  ["X-Forwarded-Host"]   = kong.request.get_host(),
+                  ["X-Forwarded-URI"]    = kong.request.get_path(),
+                  ["X-Forwarded-For"]    = kong.request.get_header("X-Forwarded-For"),
+              },
           })
 
           if not res then
-              ngx.log(ngx.ERR, "Failed to request Authelia: ", err)
-              ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)
-              return
+              kong.log.err("Failed to request Authelia: ", err)
+              return kong.response.error(500, err)
           end
 
-          if res.status == 401 then
-              -- Preserve the original requested URL and redirect to Authelia login page
-              local original_url = ngx.var.scheme .. "://" .. ngx.var.host .. ngx.var.request_uri
-              local redirect_url = "https://auth.janpuc.com?rd=" .. ngx.escape_uri(original_url)
-
-              if not (ngx.headers_sent or ngx.exit_called) then
-                  ngx.redirect(redirect_url, ngx.HTTP_MOVED_TEMPORARILY)
-              end
+          if res.status == 302 then
+              kong.response.set_headers(res.headers)
+              return kong.response.exit(302, "Found")
           elseif res.status ~= 200 then
-              ngx.log(ngx.ERR, "Authelia authentication failed with status: ", res.status)
-              ngx.exit(ngx.HTTP_UNAUTHORIZED)
+              kong.log.err("Authelia authentication failed with status: " .. res.status, err)
+              if res.headers["Set-Cookie"] then
+                  kong.response.add_header("Set-Cookie", res.headers["Set-Cookie"])
+              end
+              return kong.response.error(401, "Unauthrized")
           end
 
-          -- Set custom headers based on Authelia response
-          set_header_if_exists("Remote-User", res.headers["Remote-User"])
-          set_header_if_exists("Remote-Name", res.headers["Remote-Name"])
-          set_header_if_exists("Remote-Email", res.headers["Remote-Email"])
-          set_header_if_exists("Remote-Groups", res.headers["Remote-Groups"])
-
-          -- Set cookies in the response
           if res.headers["Set-Cookie"] then
-              ngx.header["Set-Cookie"] = res.headers["Set-Cookie"]
+              kong.response.add_header("Set-Cookie", res.headers["Set-Cookie"])
+          end
+
+          if res.headers["Authorization"] then
+              kong.service.request.add_header("Authorization", headers["Authorization"])
+          end
+
+          if res.headers["Proxy-Authorization"] then
+              kong.service.request.add_header("Proxy-Authorization", headers["Proxy-Authorization"])
+          end
+
+          for key, value in pairs(res.headers) do
+              if string.match(key, "^Remote-") then
+                  kong.service.request.add_header(key, value)
+              elseif string.match(key, "^Authelia-") then
+                  kong.service.request.add_header(key, value)
+              end
           end
       end
 
-      -- Execute the forward_to_authelia function for the access phase
       forward_to_authelia()
