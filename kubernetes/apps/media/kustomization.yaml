@@ -9,3 +9,4 @@ resources:
   - ./referencegrant.yaml
   # Flux-Kustomizations
   - ./media-browser/ks.yaml
+  - ./sabnzbd/ks.yaml
