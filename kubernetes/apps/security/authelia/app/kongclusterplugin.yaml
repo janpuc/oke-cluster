@@ -52,11 +52,11 @@ config:
           end
 
           if res.headers["Authorization"] then
-              kong.service.request.add_header("Authorization", headers["Authorization"])
+              kong.service.request.add_header("Authorization", res.headers["Authorization"])
           end
 
           if res.headers["Proxy-Authorization"] then
-              kong.service.request.add_header("Proxy-Authorization", headers["Proxy-Authorization"])
+              kong.service.request.add_header("Proxy-Authorization", res.headers["Proxy-Authorization"])
           end
 
           for key, value in pairs(res.headers) do
