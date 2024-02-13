@@ -1,7 +1,7 @@
 // Note: Cross-Seed vars should be escaped with $${VAR_NAME} to avoid interpolation by Flux
 module.exports = {
   delay: 20,
-  qbittorrentUrl: "http://qbittorrent.default.svc.cluster.local",
+  qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local",
   torznab: [
     `http://prowlarr.media.svc.cluster.local/9/api?apikey=$${process.env.PROWLARR_API_KEY}`, // 1337
     `http://prowlarr.media.svc.cluster.local/10/api?apikey=$${process.env.PROWLARR_API_KEY}`, // fnp
