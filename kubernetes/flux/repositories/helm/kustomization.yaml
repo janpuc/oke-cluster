@@ -3,6 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ./backube.yaml
   - ./bjw-s.yaml
   - ./bitnami.yaml
   - ./cloudnative-pg.yaml
@@ -11,3 +12,4 @@ resources:
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./kong.yaml
+  - ./piraeus.yaml
