@@ -7,5 +7,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./csi-s3/ks.yaml
-  - ./local-path-provisioner/ks.yaml
   - ./openebs/ks.yaml
