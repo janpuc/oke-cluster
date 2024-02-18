@@ -12,4 +12,5 @@ resources:
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./kong.yaml
+  - ./openebs.yaml
   - ./piraeus.yaml
