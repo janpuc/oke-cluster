@@ -27,6 +27,7 @@ spec:
     logLevel: debug
     provider: cloudflare
     sources:
+      - ingress
       - service
       - gateway-httproute
       # - gateway-tcproute
