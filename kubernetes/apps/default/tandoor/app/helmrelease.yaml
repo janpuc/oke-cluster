@@ -29,14 +29,14 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          init-db:
+          init-01-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: tandoor-secret
-          init-chmod:
+          init-02-chmod:
             image: &image
               repository: vabene1111/recipes
               tag: 1.5.13@sha256:2d323943bc33e688f8e0fe73de72cda5816044bbb451924703204b7ceb2a268b
@@ -61,6 +61,9 @@ spec:
             image: *image
             env:
               TZ: Europe/Warsaw
+              DEBUG: "0"
+              ALLOWED_HOSTS: "*"
+              GUNICORN_MEDIA: "0"
             envFrom: *envFrom
             command:
               - /opt/recipes/venv/bin/gunicorn
