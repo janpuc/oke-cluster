@@ -7,4 +7,4 @@ resources:
   - ./namespace.yaml
   - ./referencegrant.yaml
   # Flux-Kustomizations
-  - ./tandoor/ks.yaml
+  # - ./tandoor/ks.yaml
