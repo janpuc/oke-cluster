@@ -52,10 +52,12 @@ spec:
                 python manage.py collectstatic_js_reverse
                 python manage.py collectstatic --noinput
                 echo "Setting media file attributes"
-                chown -R 65534:65534 /opt/recipes/mediafiles
+                chown -R 568:568 /opt/recipes/mediafiles
                 find /opt/recipes/mediafiles -type d | xargs -r chmod 755
                 find /opt/recipes/mediafiles -type f | xargs -r chmod 644
                 echo "Done"
+            securityContext:
+              runAsUser: 0
         containers:
           main:
             image: *image
