@@ -12,5 +12,7 @@ resources:
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./kong.yaml
+  - ./metrics-server.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
+  - ./prometheus-community.yaml
