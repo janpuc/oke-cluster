@@ -144,3 +144,5 @@ spec:
         existingClaim: tandoor-static
         globalMounts:
           - path: /opt/recipes/staticfiles
+      tmp:
+        type: emptyDir
