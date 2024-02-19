@@ -9,7 +9,7 @@ resources:
   - ./referencegrant.yaml
   # Flux-Kustomizations
   - ./autobrr/ks.yaml
-  - ./cross-seed/ks.yaml
+  # - ./cross-seed/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./media-browser/ks.yaml
   - ./prowlarr/ks.yaml
