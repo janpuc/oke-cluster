@@ -8,4 +8,3 @@ resources:
   - ./referencegrant.yaml
   # Flux-Kustomizations
   - ./kube-prometheus-stack/ks.yaml
-  - ./thanos/ks.yaml
