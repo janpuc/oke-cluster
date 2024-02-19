@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   - ./referencegrant.yaml
   # Flux-Kustomizations
+  - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml

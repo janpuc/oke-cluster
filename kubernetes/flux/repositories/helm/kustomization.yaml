@@ -11,6 +11,7 @@ resources:
   - ./democratic-csi.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
+  - ./grafana.yaml
   - ./kong.yaml
   - ./metrics-server.yaml
   - ./openebs.yaml
