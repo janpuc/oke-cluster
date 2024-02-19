@@ -36,11 +36,29 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: tandoor-secret
-        containers:
-          main:
-            image:
+          init-chmod:
+            image: &image
               repository: vabene1111/recipes
               tag: 1.5.13@sha256:2d323943bc33e688f8e0fe73de72cda5816044bbb451924703204b7ceb2a268b
+            envFrom: *envFrom
+            command:
+              - sh
+              - -c
+              - |
+                set -e
+                source venv/bin/activate
+                echo "Updating database"
+                python manage.py migrate
+                python manage.py collectstatic_js_reverse
+                python manage.py collectstatic --noinput
+                echo "Setting media file attributes"
+                chown -R 65534:65534 /opt/recipes/mediafiles
+                find /opt/recipes/mediafiles -type d | xargs -r chmod 755
+                find /opt/recipes/mediafiles -type f | xargs -r chmod 644
+                echo "Done"
+        containers:
+          main:
+            image: *image
             env:
               TZ: Europe/Warsaw
             envFrom: *envFrom
@@ -68,7 +86,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 128Mi
         pod:
           securityContext:
             runAsUser: 568
