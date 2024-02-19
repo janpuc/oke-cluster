@@ -101,6 +101,10 @@ spec:
       media:
         enabled: true
         existingClaim: tandoor-media
+        globalMounts:
+          - path: /opt/recipes/mediafiles
       static:
         enabled: true
         existingClaim: tandoor-static
+        globalMounts:
+          - path: /opt/recipes/staticfiles
