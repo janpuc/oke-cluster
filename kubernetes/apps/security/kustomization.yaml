@@ -7,5 +7,5 @@ resources:
   - ./namespace.yaml
   - ./referencegrant.yaml
   # Flux-Kustomizations
-  # - ./authelia/ks.yaml
-  # - ./lldap/ks.yaml
+  - ./authelia/ks.yaml
+  - ./lldap/ks.yaml
