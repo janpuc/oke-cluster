@@ -59,9 +59,9 @@ spec:
               ]
             resources: &resources
               requests:
-                cpu: 25m
+                cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 64Mi
         containers:
           unregistered:
             image: *image
