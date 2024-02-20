@@ -29,27 +29,44 @@ spec:
     crds:
       enabled: true
       cleanPrometheusOperatorObjectNames: true
-      # alertmanager:
-      #   ingress:
-      #     enabled: true
-      #     pathType: Prefix
-      #     ingressClassName: kong
-      #     hosts:
-      #       - &host alertmanager.janpuc.com
-      #     tls:
-      #       - hosts:
-      #           - *host
-      #     alertmanagerSpec:
-      #       replicas: 2
-      #       useExistingSecret: true
-      #       configSecret: alertmanager-secret
-      #       storage:
-      #         volumeClaimTemplate:
-      #           spec:
-      #             storageClassName: local-hostpath
-      #             resources:
-      #               requests:
-      #                 storage: 1Gi
+      alertmanager:
+        ingress:
+          enabled: true
+          pathType: Prefix
+          ingressClassName: kong
+          hosts:
+            - &hostAlertmanager alertmanager.janpuc.com
+          tls:
+            - hosts:
+                - *hostAlertmanager
+        alertmanagerSpec:
+          replicas: 1
+          # useExistingSecret: true
+          # configSecret: alertmanager-secret
+          storage:
+            volumeClaimTemplate:
+              spec:
+                storageClassName: local-hostpath
+                resources:
+                  requests:
+                    storage: 1Gi
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 64Mi
+    prometheusOperator:
+      resources:
+        requests:
+          cpu: 20m
+        limits:
+          memory: 64Mi
+      prometheusConfigReloader:
+        resources:
+          requests:
+            cpu: 5m
+          limits:
+            memory: 32Mi
     kubelet:
       enabled: true
     kubeApiServer:
@@ -60,16 +77,16 @@ spec:
         pathType: Prefix
         ingressClassName: kong
         hosts:
-          - &host prometheus.janpuc.com
+          - &hostPrometheus prometheus.janpuc.com
         tls:
           - hosts:
-              - *host
+              - *hostPrometheus
       thanosService:
         enabled: true
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
-        replicas: 2
+        replicas: 1
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -100,6 +117,11 @@ spec:
               resources:
                 requests:
                   storage: 15Gi
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 1Gi
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
@@ -114,6 +136,11 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
+      resources:
+        requests:
+          cpu: 5m
+        limits:
+          memory: 32Mi
     kubeStateMetrics:
       enabled: true
     kube-state-metrics:
@@ -132,6 +159,11 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
+      resources:
+        requests:
+          cpu: 5m
+        limits:
+          memory: 64Mi
     grafana:
       enabled: false
       forceDeployDashboards: true
