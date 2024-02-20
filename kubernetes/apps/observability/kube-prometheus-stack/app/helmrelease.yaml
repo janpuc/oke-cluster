@@ -25,6 +25,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: thanos
+      namespace: observability
   values:
     crds:
       enabled: true
@@ -99,13 +102,13 @@ spec:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        # thanos:
-        #   image: quay.io/thanos/thanos:${THANOS_VERSION}
-        #   version: "${THANOS_VERSION#v}"
-        #   objectStorageConfig:
-        #     existingSecret:
-        #       name: thanos-objstore-secret
-        #       key: objstore.yml
+        thanos:
+          image: quay.io/thanos/thanos:${THANOS_VERSION}
+          version: "${THANOS_VERSION#v}"
+          objectStorageConfig:
+            existingSecret:
+              name: thanos-objstore-secret
+              key: objstore.yml
         retention: 2d
         retentionSize: 10GB
         externalLabels:
@@ -116,7 +119,7 @@ spec:
               storageClassName: local-hostpath
               resources:
                 requests:
-                  storage: 15Gi
+                  storage: 5Gi
         resources:
           requests:
             cpu: 10m
