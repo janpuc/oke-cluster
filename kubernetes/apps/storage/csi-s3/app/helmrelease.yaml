@@ -33,19 +33,46 @@ spec:
     secret:
       create: false
       name: csi-s3-secret
-    # kubeletPath: /var/lib/k0s/kubelet
-  # # https://github.com/yandex-cloud/k8s-csi-s3/issues/71
-  # postRenderers:
-  #   - kustomize:
-  #       patches:
-  #         - target:
-  #             group: apps
-  #             version: v1
-  #             kind: DaemonSet
-  #             name: csi-s3
-  #           patch: |-
-  #             - op: add
-  #               path: "/spec/template/spec/containers/1/env/-"
-  #               value:
-  #                 name: PLUGIN_DIR
-  #                 value: "/var/lib/k0s/kubelet/plugins/ru.yandex.s3.csi"
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: DaemonSet
+              name: csi-s3
+            patch: |-
+              - op: add
+                path: "/spec/template/spec/containers/0/resources"
+                value:
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
+              - op: add
+                path: "/spec/template/spec/containers/1/resources"
+                value:
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 64Mi
+          - target:
+              group: apps
+              version: v1
+              kind: StatefulSet
+              name: csi-provisioner-s3
+            patch: |-
+              - op: add
+                path: "/spec/template/spec/containers/0/resources"
+                value:
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
+              - op: add
+                path: "/spec/template/spec/containers/1/resources"
+                value:
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
