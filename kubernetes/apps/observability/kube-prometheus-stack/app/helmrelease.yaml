@@ -55,6 +55,7 @@ spec:
         resources:
           requests:
             cpu: 10m
+            memory: null
           limits:
             memory: 64Mi
     prometheusOperator:
