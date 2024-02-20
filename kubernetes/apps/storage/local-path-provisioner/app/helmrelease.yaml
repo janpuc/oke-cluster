@@ -37,6 +37,11 @@ spec:
           - --strict-topology=true
           - --enable-capacity=true
           - --capacity-ownerref-level=1
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 32Mi
       externalResizer:
         enabled: false
       externalAttacher:
@@ -70,8 +75,27 @@ spec:
           - name: local-hostpath
             mountPath: *storagePath
             mountPropagation: Bidirectional
+        resources:
+          requests:
+            cpu: 20m
+            memory: 128Mi
+          limits:
+            memory: 256Mi
       extraVolumes:
         - name: local-hostpath
           hostPath:
             path: *storagePath
             type: DirectoryOrCreate
+    csiProxy:
+      resources:
+        requests:
+          cpu: 5m
+        limits:
+          memory: 32Mi
+    cleanup:
+      resources:
+        requests:
+          cpu: 5m
+          requests: null
+        limits:
+          memory: 32Mi
