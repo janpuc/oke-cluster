@@ -41,42 +41,38 @@ spec:
               version: v1
               kind: DaemonSet
               name: csi-s3
-            patch: |-
+            patch: |
               - op: add
-                path: "/spec/template/spec/containers/0"
+                path: "/spec/template/spec/containers/0/resources"
                 value:
-                  resources:
-                    requests:
-                      cpu: 5m
-                    limits:
-                      memory: 32Mi
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
               - op: add
-                path: "/spec/template/spec/containers/1"
+                path: "/spec/template/spec/containers/1/resources"
                 value:
-                  resources:
-                    requests:
-                      cpu: 5m
-                    limits:
-                      memory: 64Mi
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 64Mi
           - target:
               group: apps
               version: v1
               kind: StatefulSet
               name: csi-provisioner-s3
-            patch: |-
+            patch: |
               - op: add
-                path: "/spec/template/spec/containers/0"
+                path: "/spec/template/spec/containers/0/resources"
                 value:
-                  resources:
-                    requests:
-                      cpu: 5m
-                    limits:
-                      memory: 32Mi
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
               - op: add
-                path: "/spec/template/spec/containers/1"
+                path: "/spec/template/spec/containers/1/resources"
                 value:
-                  resources:
-                    requests:
-                      cpu: 5m
-                    limits:
-                      memory: 32Mi
+                  requests:
+                    cpu: 5m
+                  limits:
+                    memory: 32Mi
