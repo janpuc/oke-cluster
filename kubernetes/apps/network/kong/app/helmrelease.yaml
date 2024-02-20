@@ -30,6 +30,11 @@ spec:
           oci.oraclecloud.com/load-balancer-type: "nlb"
           oci-network-load-balancer.oraclecloud.com/internal: "false"
           external-dns.alpha.kubernetes.io/hostname: oke.janpuc.com
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 128Mi
     gateway:
       proxy:
         annotations:
@@ -41,3 +46,8 @@ spec:
           mountPath: /etc/kong/custom
       env:
         UNTRUSTED_LUA: "on"
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 512Mi
