@@ -35,7 +35,6 @@ spec:
     alertmanager:
       enabled: true
       ingress:
-        enabled: true
         pathType: Prefix
         ingressClassName: kong
         hosts:
