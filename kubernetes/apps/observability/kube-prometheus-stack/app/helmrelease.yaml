@@ -28,33 +28,33 @@ spec:
   values:
     crds:
       enabled: true
-      cleanPrometheusOperatorObjectNames: true
-      alertmanager:
-        ingress:
-          enabled: true
-          pathType: Prefix
-          ingressClassName: kong
-          hosts:
-            - &hostAlertmanager alertmanager.janpuc.com
-          tls:
-            - hosts:
-                - *hostAlertmanager
-        alertmanagerSpec:
-          replicas: 1
-          useExistingSecret: true
-          configSecret: alertmanager-secret
-          storage:
-            volumeClaimTemplate:
-              spec:
-                storageClassName: local-hostpath
-                resources:
-                  requests:
-                    storage: 1Gi
-          resources:
-            requests:
-              cpu: 10m
-            limits:
-              memory: 64Mi
+    cleanPrometheusOperatorObjectNames: true
+    alertmanager:
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: kong
+        hosts:
+          - &hostAlertmanager alertmanager.janpuc.com
+        tls:
+          - hosts:
+              - *hostAlertmanager
+      alertmanagerSpec:
+        replicas: 1
+        useExistingSecret: true
+        configSecret: alertmanager-secret
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-hostpath
+              resources:
+                requests:
+                  storage: 1Gi
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 64Mi
     prometheusOperator:
       resources:
         requests:
