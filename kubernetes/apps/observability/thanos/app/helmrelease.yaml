@@ -61,6 +61,14 @@ spec:
       enabled: false
       networkPolicy:
         enabled: false
+    query:
+      enabled: true
+      replicaLabel: ["__replica__"]
+      dnsDiscovery:
+        sidecarsService: kube-prometheus-stack-thanos-discovery
+        sidecarsNamespace: observability
+      networkPolicy:
+        enabled: false
     queryFrontend:
       enabled: true
       replicaCount: 1
@@ -103,6 +111,7 @@ spec:
       networkPolicy:
         enabled: false
     storegateway:
+      logLevel: debug
       enabled: true
       replicaCount: 1
       config: *config
