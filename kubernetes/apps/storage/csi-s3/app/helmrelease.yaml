@@ -43,19 +43,21 @@ spec:
               name: csi-s3
             patch: |-
               - op: add
-                path: "/spec/template/spec/containers/0/resources"
+                path: "/spec/template/spec/containers/0"
                 value:
-                  requests:
-                    cpu: 5m
-                  limits:
-                    memory: 32Mi
+                  resources:
+                    requests:
+                      cpu: 5m
+                    limits:
+                      memory: 32Mi
               - op: add
-                path: "/spec/template/spec/containers/1/resources"
+                path: "/spec/template/spec/containers/1"
                 value:
-                  requests:
-                    cpu: 5m
-                  limits:
-                    memory: 64Mi
+                  resources:
+                    requests:
+                      cpu: 5m
+                    limits:
+                      memory: 64Mi
           - target:
               group: apps
               version: v1
@@ -63,16 +65,18 @@ spec:
               name: csi-provisioner-s3
             patch: |-
               - op: add
-                path: "/spec/template/spec/containers/0/resources"
+                path: "/spec/template/spec/containers/0"
                 value:
-                  requests:
-                    cpu: 5m
-                  limits:
-                    memory: 32Mi
+                  resources:
+                    requests:
+                      cpu: 5m
+                    limits:
+                      memory: 32Mi
               - op: add
-                path: "/spec/template/spec/containers/1/resources"
+                path: "/spec/template/spec/containers/1"
                 value:
-                  requests:
-                    cpu: 5m
-                  limits:
-                    memory: 32Mi
+                  resources:
+                    requests:
+                      cpu: 5m
+                    limits:
+                      memory: 32Mi
