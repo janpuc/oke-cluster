@@ -44,6 +44,11 @@ spec:
       GF_SERVER_ROOT_URL: https://grafana.janpuc.com
     envFromSecrets:
       - name: *secret
+    resources:
+      requests:
+        cpu: 20m
+      limits:
+        memory: 256Mi
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -290,6 +295,11 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
+      resources:
+        requests:
+          cpu: 5m
+        limits:
+          memory: 128Mi
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
