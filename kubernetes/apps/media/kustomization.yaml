@@ -7,6 +7,7 @@ resources:
   - ./namespace.yaml
   - ./pvc.yaml
   - ./referencegrant.yaml
+  - ../../templates/base
   # Flux-Kustomizations
   - ./autobrr/ks.yaml
   # - ./cross-seed/ks.yaml
@@ -15,3 +16,22 @@ resources:
   - ./prowlarr/ks.yaml
   # - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml
+patchesJson6902:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Alert
+      name: alert-manager
+      version: v1beta3
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Provider
+      name: alert-manager
+      version: v1beta3

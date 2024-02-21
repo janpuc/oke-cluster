@@ -5,5 +5,25 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ../../templates/base
   # Flux-Kustomizations
   - ./metrics-server/ks.yaml
+patchesJson6902:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Alert
+      name: alert-manager
+      version: v1beta3
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Provider
+      name: alert-manager
+      version: v1beta3

@@ -6,8 +6,28 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./referencegrant.yaml
+  - ../../templates/base
   # Flux-Kustomizations
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
   - ./thanos/ks.yaml
+patchesJson6902:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Alert
+      name: alert-manager
+      version: v1beta3
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: default
+    target:
+      group: notification.toolkit.fluxcd.io
+      kind: Provider
+      name: alert-manager
+      version: v1beta3
