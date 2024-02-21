@@ -12,34 +12,22 @@ route:
     #   group_interval: 5m
     #   group_wait: 0s
     #   matchers:
-    #     - name: alertname
-    #       value: Watchdog
-    #       matchType: =
+    #     - "alertname = Watchdog"
     #   repeat_interval: 5m
     - receiver: "null"
       matchers:
-        - name: alertname
-          value: InfoInhibitor
-          matchType: "="
-        - name: alertname
-          value: Watchdog
-          matchType: "="
+        - "alertname = InfoInhibitor"
+        - "alertname = Watchdog"
     - receiver: pushover
       continue: true
       matchers:
-        - name: severity
-          value: critical
-          matchType: "="
+        - "severity = critical"
 inhibit_rules:
   - equal: ["alertname", "namespace"]
     source_matchers:
-      - name: severity
-        value: critical
-        matchType: "="
+      - "severity = critical"
     target_matchers:
-      - name: severity
-        value: warning
-        matchType: "="
+      - "severity = warning"
 receivers:
   # - name: heartbeat
   #   webhook_configs:
