@@ -33,7 +33,6 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: true
       ingress:
         pathType: Prefix
         ingressClassName: kong
