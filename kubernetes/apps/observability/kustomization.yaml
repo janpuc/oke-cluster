@@ -8,5 +8,5 @@ resources:
   - ./referencegrant.yaml
   # Flux-Kustomizations
   - ./grafana/ks.yaml
-  # - ./kube-prometheus-stack/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
   - ./thanos/ks.yaml
