@@ -120,6 +120,7 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
+      replicas: 1
       image:
         registry: ghcr.io
       ingress:
@@ -134,6 +135,7 @@ spec:
           - hosts:
               - *host
     read:
+      replicas: 1
       persistence:
         storageClass: local-hostpath
       extraVolumeMounts:
@@ -146,6 +148,7 @@ spec:
       persistence:
         storageClass: local-hostpath
     backend:
+      replicas: 1
       persistence:
         storageClass: local-hostpath
       extraVolumeMounts:
