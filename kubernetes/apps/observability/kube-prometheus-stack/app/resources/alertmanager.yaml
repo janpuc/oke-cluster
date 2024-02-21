@@ -17,7 +17,7 @@ route:
     - receiver: "null"
       matchers:
         - alertname =~ "InfoInhibitor"
-        - alertname =~ "Watchdog""
+        - alertname =~ "Watchdog"
     - receiver: pushover
       continue: true
       matchers:
