@@ -32,6 +32,10 @@ spec:
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
+    defaultRules:
+      rules:
+        kubeControllerManager: false
+        kubeSchedulerAlerting: false
     alertmanager:
       ingress:
         enabled: true
