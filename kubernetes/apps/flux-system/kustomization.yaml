@@ -12,7 +12,7 @@ patchesJson6902:
   - patch: |-
       - op: add
         path: /metadata/namespace
-        value: default
+        value: flux-system
     target:
       group: notification.toolkit.fluxcd.io
       kind: Alert
@@ -21,7 +21,7 @@ patchesJson6902:
   - patch: |-
       - op: add
         path: /metadata/namespace
-        value: default
+        value: flux-system
     target:
       group: notification.toolkit.fluxcd.io
       kind: Provider
