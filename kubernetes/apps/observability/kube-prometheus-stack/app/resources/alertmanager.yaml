@@ -22,7 +22,7 @@ route:
         alertname: InfoInhibitor
     - receiver: pushover
       continue: true
-      matche:
+      match:
         severity: critical
 inhibit_rules:
   - equal: ["alertname", "namespace"]
