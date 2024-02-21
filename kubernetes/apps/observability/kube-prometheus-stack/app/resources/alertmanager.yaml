@@ -33,7 +33,7 @@ receivers:
   #   webhook_configs:
   #     - send_resolved: true
   #       url: "{{ .ALERTMANAGER_UPTIMEROBOT_HEARTBEAT_URL }}"
-  - name: "null"
+  - name: 'null'
   - name: pushover
     pushover_configs:
       - html: true
