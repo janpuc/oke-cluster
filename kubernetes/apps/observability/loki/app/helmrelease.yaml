@@ -145,6 +145,7 @@ spec:
         - name: rules
           emptyDir: {}
     write:
+      replicas: 1
       persistence:
         storageClass: local-hostpath
     backend:
