@@ -74,10 +74,10 @@ spec:
             cpu: 5m
           limits:
             memory: 32Mi
-    # kubelet:
-    #   enabled: true
-    # kubeApiServer:
-    #   enabled: true
+    kubelet:
+      enabled: true
+    kubeApiServer:
+      enabled: true
     prometheus:
       ingress:
         enabled: true
