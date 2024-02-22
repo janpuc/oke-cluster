@@ -6,7 +6,7 @@ vars:
   GATEWAY_API_VERSION: "v1.0.0"
 
   # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-  PROMETHEUS_OPERATOR_VERSION: "v0.70.0"
+  PROMETHEUS_OPERATOR_VERSION: "v0.71.2"
 
 tasks:
 
