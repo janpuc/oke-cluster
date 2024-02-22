@@ -8,7 +8,7 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":skipStatusCheks",
+    ":skipStatusChecks",
     ":timezone(Europe/Warsaw)",
     "github>janpuc/oke-cluster//.github/renovate/allowedVersions.json5",
     "github>janpuc/oke-cluster//.github/renovate/autoMerge.json5",
