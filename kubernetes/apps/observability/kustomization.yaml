@@ -9,7 +9,7 @@ resources:
   - ../../templates/base
   # Flux-Kustomizations
   - ./grafana/ks.yaml
-  # - ./insights-agent/ks.yaml
+  - ./insights-agent/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
   - ./thanos/ks.yaml
