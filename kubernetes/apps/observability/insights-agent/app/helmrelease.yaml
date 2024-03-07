@@ -38,3 +38,6 @@ spec:
       enabled: true
     trivy:
       enabled: true
+    prometheus-metrics:
+      enabled: true
+      address: http://prometheus-operated.observability.svc.cluster.local:9090
