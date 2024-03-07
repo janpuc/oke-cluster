@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: insights-agent
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: insights-agent
+      version: 3.1.3
+      sourceRef:
+        kind: HelmRepository
+        name: fairwinds
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    insights:
+      organization: janpuc
+      cluster: oke-cluster
+      tokenSecretName: insights-agent-secret
+    nova:
+      enabled: true
+    opa:
+      enabled: true
+    pluto:
+      enabled: true
+    polaris:
+      enabled: true
+    trivy:
+      enabled: true
