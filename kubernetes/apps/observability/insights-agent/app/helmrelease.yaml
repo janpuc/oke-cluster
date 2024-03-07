@@ -41,3 +41,5 @@ spec:
     prometheus-metrics:
       enabled: true
       address: http://prometheus-operated.observability.svc.cluster.local:9090
+    right-sizer:
+      enabled: false
