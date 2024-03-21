@@ -39,7 +39,7 @@ spec:
           init-02-chmod:
             image: &image
               repository: vabene1111/recipes
-              tag: 1.5.14@sha256:a514552c19f06cf9a44acc10c1a3047789012384c1601e5e17f923f2ab2afaa4
+              tag: 1.5.15@sha256:d4d320e489f66bb66e7d2d4eb6e28e6341d0733320605520250d2776a877c7e2
             envFrom: *envFrom
             command:
               - sh
