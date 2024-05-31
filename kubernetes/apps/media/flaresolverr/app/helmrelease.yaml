@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/flaresolverr/flaresolverr
-              tag: v3.3.16@sha256:7692a83bac76291511d3bd89e396540f9625580bd779416b3189a8cda77809e1
+              tag: v3.3.19@sha256:6bd05d5455298fe67e38a012ad8d216f5e4d9f356c1ec9cae594cd91a2646272
             env:
               TZ: Europe/Warsaw
               LOG_LEVEL: info
