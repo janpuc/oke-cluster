@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.2.3@sha256:2ba8caf2eb072125a198348c05fdaba53d9d13008173321bdd257694614d5d1a
+              tag: 4.3.2@sha256:eb884c824b3b109891bdae3eb58fff918d8235637b658a8abb03355ba1368379
             env:
               TZ: Europe/Warsaw
               SABNZBD__PORT: &port 8080
