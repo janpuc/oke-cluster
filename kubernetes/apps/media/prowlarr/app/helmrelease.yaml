@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.18.0.4543@sha256:06693f38d6915d3f47664cbb8223b65e179f5d5b769a9ee2e302d1aaf3299bb2
+              tag: 1.19.0.4568@sha256:71cc25e7b28cfb11696b86404f01a96966660311d93888b95dcab52d6e65894c
             env:
               COMPlus_EnableDiagnostics: "0"
               PROWLARR__INSTANCE_NAME: Prowlarr
