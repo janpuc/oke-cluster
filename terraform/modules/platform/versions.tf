@@ -10,7 +10,7 @@ terraform {
     }
     oci = {
       source  = "oracle/oci"
-      version = "~> 5.45.0"
+      version = "~> 5.47.0"
     }
   }
   required_version = "~> 1.8.0"
